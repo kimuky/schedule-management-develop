@@ -14,28 +14,28 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/schedules")
-public class scheduleController {
+public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
     @PostMapping
-    public ResponseEntity<CreateScheduleResponseDto> save(@RequestBody ScheduleRequestDto requestDto) {
+    public ResponseEntity<CreateScheduleResponseDto> saveSchedule(@RequestBody ScheduleRequestDto requestDto) {
 
-        CreateScheduleResponseDto savedSchedule = scheduleService.save(requestDto);
+        CreateScheduleResponseDto savedSchedule = scheduleService.saveSchedule(requestDto);
 
         return new ResponseEntity<>(savedSchedule, HttpStatus.CREATED);
     }
 
     @GetMapping
-    public ResponseEntity<List<ScheduleAllResponseDto>> findAll () {
-        List<ScheduleAllResponseDto> scheduleAllResponseDtoList = scheduleService.findAll();
+    public ResponseEntity<List<ScheduleAllResponseDto>> findAllSchedules () {
+        List<ScheduleAllResponseDto> scheduleAllResponseDtoList = scheduleService.findAllSchedules();
 
         return new ResponseEntity<>(scheduleAllResponseDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/{scheduleId}")
-    public ResponseEntity<ScheduleAllResponseDto> findById (@PathVariable Long scheduleId) {
-        ScheduleAllResponseDto responseDto = scheduleService.findById(scheduleId);
+    public ResponseEntity<ScheduleAllResponseDto> findByScheduleId (@PathVariable Long scheduleId) {
+        ScheduleAllResponseDto responseDto = scheduleService.findByScheduleId(scheduleId);
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }

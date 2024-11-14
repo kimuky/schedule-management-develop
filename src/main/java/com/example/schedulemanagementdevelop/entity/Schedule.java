@@ -19,7 +19,15 @@ public class Schedule extends BaseEntity{
     @Column(columnDefinition = "Text")
     private String contents;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Schedule() {
+    }
+
+    public void setUser (User user ) {
+        this.user = user;
     }
 
     public Schedule(ScheduleRequestDto requestDto) {

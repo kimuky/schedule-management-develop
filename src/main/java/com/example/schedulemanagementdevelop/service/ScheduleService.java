@@ -19,7 +19,7 @@ public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
 
-    public CreateScheduleResponseDto save(ScheduleRequestDto requestDto) {
+    public CreateScheduleResponseDto saveSchedule(ScheduleRequestDto requestDto) {
 
         Schedule schedule = new Schedule(requestDto);
         Schedule savedSchedule = scheduleRepository.save(schedule);
@@ -27,12 +27,12 @@ public class ScheduleService {
         return new CreateScheduleResponseDto(savedSchedule);
     }
 
-    public List<ScheduleAllResponseDto> findAll() {
+    public List<ScheduleAllResponseDto> findAllSchedules() {
 
         return scheduleRepository.findAll().stream().map(ScheduleAllResponseDto::toDto).toList();
     }
 
-    public ScheduleAllResponseDto findById(Long scheduleId) {
+    public ScheduleAllResponseDto findByScheduleId(Long scheduleId) {
 
         Schedule findSchedule = findByIdOrElseThrow(scheduleId);
 
