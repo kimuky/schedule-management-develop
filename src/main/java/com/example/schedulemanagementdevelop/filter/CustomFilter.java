@@ -25,7 +25,7 @@ public class CustomFilter implements Filter {
             HttpSession session = httpServletRequest.getSession(false);
             log.info(requestURI);
 
-            if (session == null || session.getAttribute("id") == null) {
+            if (session == null || session.getAttribute("email") == null) {
                 throw new RuntimeException("로그인 해주세요");
             }
         }
