@@ -4,7 +4,7 @@ import com.example.schedulemanagementdevelop.entity.Schedule;
 import lombok.Getter;
 
 @Getter
-public class ScheduleResponseDto {
+public class CreateScheduleResponseDto {
 
     private final Long id;
 
@@ -12,7 +12,7 @@ public class ScheduleResponseDto {
 
     private final String contents;
 
-    public ScheduleResponseDto(Schedule schedule) {
+    public CreateScheduleResponseDto(Schedule schedule) {
         this.id = schedule.getId();
         this.title = schedule.getTitle();
         this.contents = schedule.getContents();
