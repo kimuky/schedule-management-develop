@@ -5,6 +5,7 @@ import com.example.schedulemanagementdevelop.dto.*;
 import com.example.schedulemanagementdevelop.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<UserResponseDto> saveUser(@RequestBody UserRequestDto requestDto) {
+    public ResponseEntity<UserResponseDto> saveUser(@Valid  @RequestBody UserRequestDto requestDto) {
 
         UserResponseDto userResponseDto = userService.saveUser(requestDto);
 
@@ -28,7 +29,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public ResponseEntity<LoginUserResponseDto> login(@RequestBody LoginUserRequestDto requestDto, HttpServletRequest servletRequest) {
+    public ResponseEntity<LoginUserResponseDto> login(@Valid @RequestBody LoginUserRequestDto requestDto, HttpServletRequest servletRequest) {
 
         LoginUserResponseDto login = userService.login(requestDto);
 

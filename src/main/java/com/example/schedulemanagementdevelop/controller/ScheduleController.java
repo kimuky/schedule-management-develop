@@ -6,6 +6,7 @@ import com.example.schedulemanagementdevelop.dto.ScheduleAllResponseDto;
 import com.example.schedulemanagementdevelop.service.ScheduleService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +22,7 @@ public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping("/post")
-    public ResponseEntity<CreateScheduleResponseDto> saveSchedule(@RequestBody ScheduleRequestDto requestDto, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<CreateScheduleResponseDto> saveSchedule(@Valid @RequestBody ScheduleRequestDto requestDto, HttpServletRequest httpServletRequest) {
 
         HttpSession session = httpServletRequest.getSession(false);
         String userEmail = (String) session.getAttribute("email");
