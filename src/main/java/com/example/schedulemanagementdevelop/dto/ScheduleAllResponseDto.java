@@ -26,6 +26,7 @@ public class ScheduleAllResponseDto {
         this.updateAt = updateAt;
     }
 
+
     public static ScheduleAllResponseDto toDto(Schedule schedule) {
         return new ScheduleAllResponseDto(schedule.getId(), schedule.getTitle(), schedule.getContents(), schedule.getCreateAt().toLocalDate(), schedule.getUpdateAt().toLocalDate());
     }
