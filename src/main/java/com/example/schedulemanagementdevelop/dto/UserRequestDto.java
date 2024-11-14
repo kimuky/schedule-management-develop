@@ -12,7 +12,7 @@ public class UserRequestDto {
     private final String username;
 
     @NotBlank
-    @Pattern(regexp = "^[\\\\w!#$%&'*+/=?`{|}~^.-]+@[\\\\w.-]+\\\\.[a-zA-Z]{2,6}$")
+    @Pattern(regexp = "^[\\w!#$%&'*+/=?`{|}~^.-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")
     private final String email;
 
     @NotBlank
