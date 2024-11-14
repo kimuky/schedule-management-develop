@@ -12,16 +12,16 @@ public class UserAllResponseDto {
 
     private final String username;
 
-    private final String contents;
+    private final String email;
 
     private final LocalDate createAt;
 
     private final LocalDate updateAt;
 
-    public UserAllResponseDto(Long id, String username, String contents, LocalDate createAt, LocalDate updateAt) {
+    public UserAllResponseDto(Long id, String username, String email, LocalDate createAt, LocalDate updateAt) {
         this.id = id;
         this.username = username;
-        this.contents = contents;
+        this.email = email;
         this.createAt = createAt;
         this.updateAt = updateAt;
     }
