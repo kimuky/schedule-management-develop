@@ -1,8 +1,6 @@
 package com.example.schedulemanagementdevelop.service;
 
-import com.example.schedulemanagementdevelop.dto.UserAllResponseDto;
-import com.example.schedulemanagementdevelop.dto.UserRequestDto;
-import com.example.schedulemanagementdevelop.dto.UserResponseDto;
+import com.example.schedulemanagementdevelop.dto.*;
 import com.example.schedulemanagementdevelop.entity.User;
 import com.example.schedulemanagementdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +21,7 @@ public class UserService {
 
         User user = new User(requestDto.getUsername(), requestDto.getEmail(), requestDto.getPassword());
         User SavedUser = userRepository.save(user);
+
         return new UserResponseDto(SavedUser);
     }
 
@@ -38,6 +37,7 @@ public class UserService {
 
     @Transactional
     public UserAllResponseDto updateUser(Long userId, UserRequestDto requestDto) {
+
         User findUser = findByIdOrElseThrow(userId);
 
         if (requestDto.getEmail() == null) {
@@ -63,5 +63,16 @@ public class UserService {
     private User findByIdOrElseThrow(Long userId) {
 
         return userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "유저를 찾을 수 없음"));
+    }
+
+    public LoginUserResponseDto login(LoginUserRequestDto requestDto) {
+
+        User findUser = userRepository.findUserByEmail(requestDto.getEmail()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "유저못 찾음"));
+
+        if (!requestDto.getPassword().equals(findUser.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인 실패");
+        }
+
+        return new LoginUserResponseDto(findUser);
     }
 }

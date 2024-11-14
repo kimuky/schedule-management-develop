@@ -1,10 +1,10 @@
 package com.example.schedulemanagementdevelop.controller;
 
 
-import com.example.schedulemanagementdevelop.dto.UserAllResponseDto;
-import com.example.schedulemanagementdevelop.dto.UserRequestDto;
-import com.example.schedulemanagementdevelop.dto.UserResponseDto;
+import com.example.schedulemanagementdevelop.dto.*;
 import com.example.schedulemanagementdevelop.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +27,20 @@ public class UserController {
         return new ResponseEntity<>(userResponseDto, HttpStatus.CREATED);
     }
 
+    @GetMapping("/login")
+    public ResponseEntity<LoginUserResponseDto> login(@RequestBody LoginUserRequestDto requestDto, HttpServletRequest servletRequest) {
+
+        LoginUserResponseDto login = userService.login(requestDto);
+
+        HttpSession session = servletRequest.getSession();
+        session.setAttribute("id", requestDto.getEmail());
+
+        return new ResponseEntity<>(login, HttpStatus.OK);
+    }
+
     @GetMapping
     public ResponseEntity<List<UserAllResponseDto>> findAllUsers() {
+
         List<UserAllResponseDto> userAllResponseDtoList = userService.findAllUsers();
 
         return new ResponseEntity<>(userAllResponseDtoList, HttpStatus.OK);
@@ -36,6 +48,7 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserAllResponseDto> findByUserId(@PathVariable Long userId) {
+
         UserAllResponseDto userAllResponseDto = userService.findByUserId(userId);
 
         return new ResponseEntity<>(userAllResponseDto, HttpStatus.OK);
@@ -43,6 +56,7 @@ public class UserController {
 
     @PatchMapping("/{userId}")
     public ResponseEntity<UserAllResponseDto> updateUser(@PathVariable Long userId, @RequestBody UserRequestDto requestDto) {
+
         UserAllResponseDto UserAllResponseDto = userService.updateUser(userId, requestDto);
 
         return new ResponseEntity<>(UserAllResponseDto, HttpStatus.OK);
@@ -50,6 +64,7 @@ public class UserController {
 
     @DeleteMapping("/{userId}")
     public ResponseEntity<Void> updateUser(@PathVariable Long userId) {
+
         userService.deleteUser(userId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

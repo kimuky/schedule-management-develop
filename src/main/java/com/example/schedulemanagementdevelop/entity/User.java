@@ -6,19 +6,20 @@ import lombok.Getter;
 
 @Getter
 @Entity
-@Table (name = "user")
-public class User extends BaseEntity{
+@Table(name = "user")
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String username;
 
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false, unique = true)
     private String email;
 
 
@@ -31,11 +32,11 @@ public class User extends BaseEntity{
         this.password = password;
     }
 
-    public void updateUsername (String username) {
+    public void updateUsername(String username) {
         this.username = username;
     }
 
-    public void updateEmail (String email) {
+    public void updateEmail(String email) {
         this.email = email;
     }
 }
