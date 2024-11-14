@@ -48,9 +48,7 @@
       {
         "id": 1,
         "title": "자바객체 읽기",
-        "contents": "orm 공부하기",
-        "createdAt" : "2024-11-24",
-        "updatedAt" : "2024-11-24"
+        "contents": "orm 공부하기"
       }
       ```
 
@@ -105,18 +103,6 @@
             <td>String</td>
             <td>일정 내용</td>
             <td> X </td>
-          </tr>
-          <tr>
-            <td>createdAt</td>
-            <td>datetime (YYYY-MM-DD)</td>
-            <td>생성 날짜</td>
-            <td> O </td>
-          </tr>
-          <tr>
-            <td>updatedAt</td>
-            <td>datetime (YYYY-MM-DD)</td>
-            <td>수정 날짜</td>
-            <td> O </td>
           </tr>
         </table>
 
@@ -485,9 +471,7 @@
         {
            "id": 1,
            "username": "kim123",
-           "email": "xog34@teamsparta.co.kr",
-           "createdAt" : "2024-11-24",
-           "updatedAt" : "2024-11-24"
+           "email": "xog34@teamsparta.co.kr"
         }
       ```
 
@@ -543,18 +527,6 @@
             <td>String</td>
             <td>유저 이메일</td>
             <td> X </td>
-          </tr>
-          <tr>
-            <td>createdAt</td>
-            <td>datetime (YYYY-MM-DD)</td>
-            <td>생성 날짜</td>
-            <td> O </td>
-          </tr>
-          <tr>
-            <td>updatedAt</td>
-            <td>datetime (YYYY-MM-DD)</td>
-            <td>수정 날짜</td>
-            <td> O </td>
           </tr>
 
         </table>
@@ -1004,3 +976,7 @@ DELETE FROM user WHERE id = 2;
 -- DELETE schedule with id = 3 
 DELETE FROM schedule WHERE id = 3;
 ```
+
+## Troubleshooting
+
+1. LocalDateTime을 어떻게 LocalDate
