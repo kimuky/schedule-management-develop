@@ -1,4 +1,4 @@
-package com.example.schedulemanagementdevelop.dto;
+package com.example.schedulemanagementdevelop.dto.schedules;
 
 import lombok.Getter;
 

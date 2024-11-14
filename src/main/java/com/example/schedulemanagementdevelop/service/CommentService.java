@@ -1,7 +1,7 @@
 package com.example.schedulemanagementdevelop.service;
 
-import com.example.schedulemanagementdevelop.dto.CommentRequestDto;
-import com.example.schedulemanagementdevelop.dto.CommentResponseDto;
+import com.example.schedulemanagementdevelop.dto.comment.CommentRequestDto;
+import com.example.schedulemanagementdevelop.dto.comment.CommentResponseDto;
 import com.example.schedulemanagementdevelop.entity.Comment;
 import com.example.schedulemanagementdevelop.entity.Schedule;
 import com.example.schedulemanagementdevelop.entity.User;

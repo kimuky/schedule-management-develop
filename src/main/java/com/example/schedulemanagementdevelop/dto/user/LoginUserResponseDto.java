@@ -1,10 +1,10 @@
-package com.example.schedulemanagementdevelop.dto;
+package com.example.schedulemanagementdevelop.dto.user;
 
 import com.example.schedulemanagementdevelop.entity.User;
 import lombok.Getter;
 
 @Getter
-public class UserResponseDto {
+public class LoginUserResponseDto {
 
     private final Long id;
 
@@ -12,7 +12,7 @@ public class UserResponseDto {
 
     private final String email;
 
-    public UserResponseDto(User user) {
+    public LoginUserResponseDto(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.email = user.getEmail();
