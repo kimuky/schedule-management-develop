@@ -1,8 +1,7 @@
 package com.example.schedulemanagementdevelop.service;
 
-import com.example.schedulemanagementdevelop.dto.UserAllResponseDto;
-import com.example.schedulemanagementdevelop.dto.UserRequestDto;
-import com.example.schedulemanagementdevelop.dto.UserResponseDto;
+import com.example.schedulemanagementdevelop.config.PasswordEncoder;
+import com.example.schedulemanagementdevelop.dto.*;
 import com.example.schedulemanagementdevelop.entity.User;
 import com.example.schedulemanagementdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,12 +17,25 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponseDto saveUser(UserRequestDto requestDto) {
 
-        User user = new User(requestDto.getUsername(), requestDto.getEmail());
+        User user = new User(requestDto.getUsername(), requestDto.getEmail(), passwordEncoder.encode(requestDto.getPassword()));
         User SavedUser = userRepository.save(user);
+
         return new UserResponseDto(SavedUser);
+    }
+
+    public LoginUserResponseDto login(LoginUserRequestDto requestDto) {
+
+        User findUser = userRepository.findUserByEmail(requestDto.getEmail()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "유저못 찾음"));
+
+        if (!passwordEncoder.matches(requestDto.getPassword(), findUser.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, passwordEncoder.encode(requestDto.getPassword())+" "+findUser.getPassword());
+        }
+
+        return new LoginUserResponseDto(findUser);
     }
 
     public List<UserAllResponseDto> findAllUsers() {
@@ -38,6 +50,7 @@ public class UserService {
 
     @Transactional
     public UserAllResponseDto updateUser(Long userId, UserRequestDto requestDto) {
+
         User findUser = findByIdOrElseThrow(userId);
 
         if (requestDto.getEmail() == null) {

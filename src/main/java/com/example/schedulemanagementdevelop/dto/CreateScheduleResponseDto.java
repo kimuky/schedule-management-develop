@@ -1,6 +1,5 @@
 package com.example.schedulemanagementdevelop.dto;
 
-import com.example.schedulemanagementdevelop.entity.Schedule;
 import lombok.Getter;
 
 @Getter
@@ -12,9 +11,12 @@ public class CreateScheduleResponseDto {
 
     private final String contents;
 
-    public CreateScheduleResponseDto(Schedule schedule) {
-        this.id = schedule.getId();
-        this.title = schedule.getTitle();
-        this.contents = schedule.getContents();
+    private final String username;
+
+    public CreateScheduleResponseDto(Long id, String title, String content, String username) {
+        this.id = id;
+        this.title = title;
+        this.contents = content;
+        this.username = username;
     }
 }

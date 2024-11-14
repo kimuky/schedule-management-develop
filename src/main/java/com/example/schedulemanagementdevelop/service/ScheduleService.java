@@ -1,10 +1,12 @@
 package com.example.schedulemanagementdevelop.service;
 
-import com.example.schedulemanagementdevelop.dto.ScheduleRequestDto;
 import com.example.schedulemanagementdevelop.dto.CreateScheduleResponseDto;
 import com.example.schedulemanagementdevelop.dto.ScheduleAllResponseDto;
+import com.example.schedulemanagementdevelop.dto.ScheduleRequestDto;
 import com.example.schedulemanagementdevelop.entity.Schedule;
+import com.example.schedulemanagementdevelop.entity.User;
 import com.example.schedulemanagementdevelop.repository.ScheduleRepository;
+import com.example.schedulemanagementdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -18,13 +20,18 @@ import java.util.List;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
 
-    public CreateScheduleResponseDto saveSchedule(ScheduleRequestDto requestDto) {
+    public CreateScheduleResponseDto saveSchedule(ScheduleRequestDto requestDto, String userEmail) {
+
+        User findUser = userRepository.findUserByEmail(userEmail).orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         Schedule schedule = new Schedule(requestDto);
+        schedule.setUser(findUser);
         Schedule savedSchedule = scheduleRepository.save(schedule);
 
-        return new CreateScheduleResponseDto(savedSchedule);
+        return new CreateScheduleResponseDto(
+                savedSchedule.getId(), savedSchedule.getTitle(), savedSchedule.getContents(), savedSchedule.getUser().getUsername());
     }
 
     public List<ScheduleAllResponseDto> findAllSchedules() {
@@ -58,6 +65,7 @@ public class ScheduleService {
     }
 
     public void deleteSchedule(Long scheduleId) {
+
         Schedule findSchedule = findByIdOrElseThrow(scheduleId);
 
         scheduleRepository.delete(findSchedule);

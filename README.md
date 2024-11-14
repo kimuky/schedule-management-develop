@@ -980,3 +980,4 @@ DELETE FROM schedule WHERE id = 3;
 ## Troubleshooting
 
 1. LocalDateTime을 어떻게 LocalDate
+2. 싱글 필드로 만들 시, 생성자를 생성하라는 오류
