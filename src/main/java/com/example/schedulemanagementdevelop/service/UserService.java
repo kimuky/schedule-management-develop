@@ -8,6 +8,7 @@ import com.example.schedulemanagementdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -33,6 +34,23 @@ public class UserService {
     public UserAllResponseDto findByUserId(Long userId) {
 
         return UserAllResponseDto.toDto(findByIdOrElseThrow(userId));
+    }
+
+    @Transactional
+    public UserAllResponseDto updateUser(Long userId, UserRequestDto requestDto) {
+        User findUser = findByIdOrElseThrow(userId);
+
+        if (requestDto.getEmail() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "필수 값 입니다.");
+        }
+
+        if (requestDto.getUsername() != null) {
+            findUser.updateUsername(requestDto.getUsername());
+        }
+
+        findUser.updateEmail(requestDto.getEmail());
+
+        return UserAllResponseDto.toDto(findUser);
     }
 
     private User findByIdOrElseThrow(Long userId) {

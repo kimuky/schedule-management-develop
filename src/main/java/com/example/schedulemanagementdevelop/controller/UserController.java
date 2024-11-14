@@ -40,4 +40,11 @@ public class UserController {
 
         return new ResponseEntity<>(userAllResponseDto, HttpStatus.OK);
     }
+
+    @PatchMapping("/{userId}")
+    public ResponseEntity<UserAllResponseDto> updateUser (@PathVariable Long userId, @RequestBody UserRequestDto requestDto) {
+        UserAllResponseDto UserAllResponseDto = userService.updateUser(userId, requestDto);
+
+        return new ResponseEntity<>(UserAllResponseDto, HttpStatus.OK);
+    }
 }
