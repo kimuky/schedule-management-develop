@@ -57,6 +57,12 @@ public class ScheduleService {
         return ScheduleAllResponseDto.toDto(findSchedule);
     }
 
+    public void deleteSchedule(Long scheduleId) {
+        Schedule findSchedule = findByIdOrElseThrow(scheduleId);
+
+        scheduleRepository.delete(findSchedule);
+    }
+
     private Schedule findByIdOrElseThrow (Long scheduleId) {
         return scheduleRepository.findById(scheduleId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "오류"));
     }
