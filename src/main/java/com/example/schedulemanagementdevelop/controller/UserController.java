@@ -33,4 +33,11 @@ public class UserController {
 
         return new ResponseEntity<>(userAllResponseDtoList, HttpStatus.OK);
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserAllResponseDto> findByUserId (@PathVariable Long userId) {
+        UserAllResponseDto userAllResponseDto = userService.findByUserId(userId);
+
+        return new ResponseEntity<>(userAllResponseDto, HttpStatus.OK);
+    }
 }

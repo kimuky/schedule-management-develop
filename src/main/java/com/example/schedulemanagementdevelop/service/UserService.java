@@ -6,7 +6,9 @@ import com.example.schedulemanagementdevelop.dto.UserResponseDto;
 import com.example.schedulemanagementdevelop.entity.User;
 import com.example.schedulemanagementdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -25,6 +27,16 @@ public class UserService {
 
     public List<UserAllResponseDto> findAllUsers() {
 
-       return userRepository.findAll().stream().map(UserAllResponseDto::toDto).toList();
+        return userRepository.findAll().stream().map(UserAllResponseDto::toDto).toList();
+    }
+
+    public UserAllResponseDto findByUserId(Long userId) {
+
+        return UserAllResponseDto.toDto(findByIdOrElseThrow(userId));
+    }
+
+    private User findByIdOrElseThrow(Long userId) {
+
+        return userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "유저를 찾을 수 없음"));
     }
 }
