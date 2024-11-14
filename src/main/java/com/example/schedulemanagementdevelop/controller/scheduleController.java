@@ -1,6 +1,6 @@
 package com.example.schedulemanagementdevelop.controller;
 
-import com.example.schedulemanagementdevelop.dto.CreateScheduleRequestDto;
+import com.example.schedulemanagementdevelop.dto.ScheduleRequestDto;
 import com.example.schedulemanagementdevelop.dto.CreateScheduleResponseDto;
 import com.example.schedulemanagementdevelop.dto.ScheduleAllResponseDto;
 import com.example.schedulemanagementdevelop.service.ScheduleService;
@@ -19,7 +19,7 @@ public class scheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping
-    public ResponseEntity<CreateScheduleResponseDto> save(@RequestBody CreateScheduleRequestDto requestDto) {
+    public ResponseEntity<CreateScheduleResponseDto> save(@RequestBody ScheduleRequestDto requestDto) {
 
         CreateScheduleResponseDto savedSchedule = scheduleService.save(requestDto);
 
@@ -38,5 +38,12 @@ public class scheduleController {
         ScheduleAllResponseDto responseDto = scheduleService.findById(scheduleId);
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @PatchMapping("/{scheduleId}")
+    public ResponseEntity<ScheduleAllResponseDto> updateSchedule (@PathVariable Long scheduleId, @RequestBody ScheduleRequestDto requestDto) {
+        ScheduleAllResponseDto updatedSchedule = scheduleService.updateSchedule(scheduleId, requestDto);
+
+        return new ResponseEntity<>(updatedSchedule, HttpStatus.OK);
     }
 }

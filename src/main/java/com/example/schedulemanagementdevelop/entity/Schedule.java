@@ -1,6 +1,6 @@
 package com.example.schedulemanagementdevelop.entity;
 
-import com.example.schedulemanagementdevelop.dto.CreateScheduleRequestDto;
+import com.example.schedulemanagementdevelop.dto.ScheduleRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -22,9 +22,17 @@ public class Schedule extends BaseEntity{
     public Schedule() {
     }
 
-    public Schedule(CreateScheduleRequestDto requestDto) {
+    public Schedule(ScheduleRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.contents = requestDto.getContents();
+    }
+
+    public void updateTitle (String title) {
+        this.title = title;
+    }
+
+    public void updateContents (String contents) {
+        this.contents = contents;
     }
 
 }
