@@ -1,5 +1,6 @@
 package com.example.schedulemanagementdevelop.service;
 
+import com.example.schedulemanagementdevelop.config.PasswordEncoder;
 import com.example.schedulemanagementdevelop.dto.*;
 import com.example.schedulemanagementdevelop.entity.User;
 import com.example.schedulemanagementdevelop.repository.UserRepository;
@@ -16,13 +17,25 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public UserResponseDto saveUser(UserRequestDto requestDto) {
 
-        User user = new User(requestDto.getUsername(), requestDto.getEmail(), requestDto.getPassword());
+        User user = new User(requestDto.getUsername(), requestDto.getEmail(), passwordEncoder.encode(requestDto.getPassword()));
         User SavedUser = userRepository.save(user);
 
         return new UserResponseDto(SavedUser);
+    }
+
+    public LoginUserResponseDto login(LoginUserRequestDto requestDto) {
+
+        User findUser = userRepository.findUserByEmail(requestDto.getEmail()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "유저못 찾음"));
+
+        if (!passwordEncoder.matches(requestDto.getPassword(), findUser.getPassword())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, passwordEncoder.encode(requestDto.getPassword())+" "+findUser.getPassword());
+        }
+
+        return new LoginUserResponseDto(findUser);
     }
 
     public List<UserAllResponseDto> findAllUsers() {
@@ -63,16 +76,5 @@ public class UserService {
     private User findByIdOrElseThrow(Long userId) {
 
         return userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "유저를 찾을 수 없음"));
-    }
-
-    public LoginUserResponseDto login(LoginUserRequestDto requestDto) {
-
-        User findUser = userRepository.findUserByEmail(requestDto.getEmail()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "유저못 찾음"));
-
-        if (!requestDto.getPassword().equals(findUser.getPassword())) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인 실패");
-        }
-
-        return new LoginUserResponseDto(findUser);
     }
 }

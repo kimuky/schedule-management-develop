@@ -12,12 +12,9 @@ public class LoginUserResponseDto {
 
     private final String email;
 
-    private final String password;
-
     public LoginUserResponseDto(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.email = user.getEmail();
-        this.password = user.getPassword();
     }
 }
