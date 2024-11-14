@@ -24,7 +24,7 @@ public class ScheduleController {
     public ResponseEntity<CreateScheduleResponseDto> saveSchedule(@RequestBody ScheduleRequestDto requestDto, HttpServletRequest httpServletRequest) {
 
         HttpSession session = httpServletRequest.getSession(false);
-        String userEmail = (String) session.getAttribute("id");
+        String userEmail = (String) session.getAttribute("email");
 
         CreateScheduleResponseDto savedSchedule = scheduleService.saveSchedule(requestDto, userEmail);
 

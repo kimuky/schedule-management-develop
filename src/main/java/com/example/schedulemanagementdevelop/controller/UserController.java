@@ -33,7 +33,7 @@ public class UserController {
         LoginUserResponseDto login = userService.login(requestDto);
 
         HttpSession session = servletRequest.getSession();
-        session.setAttribute("id", requestDto.getEmail());
+        session.setAttribute("email", requestDto.getEmail());
 
         return new ResponseEntity<>(login, HttpStatus.OK);
     }
