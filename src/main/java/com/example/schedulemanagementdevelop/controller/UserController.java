@@ -20,7 +20,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping
-    public ResponseEntity<UserResponseDto> saveUser (@RequestBody UserRequestDto requestDto) {
+    public ResponseEntity<UserResponseDto> saveUser(@RequestBody UserRequestDto requestDto) {
 
         UserResponseDto userResponseDto = userService.saveUser(requestDto);
 
@@ -28,23 +28,30 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<UserAllResponseDto>> findAllUsers () {
+    public ResponseEntity<List<UserAllResponseDto>> findAllUsers() {
         List<UserAllResponseDto> userAllResponseDtoList = userService.findAllUsers();
 
         return new ResponseEntity<>(userAllResponseDtoList, HttpStatus.OK);
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserAllResponseDto> findByUserId (@PathVariable Long userId) {
+    public ResponseEntity<UserAllResponseDto> findByUserId(@PathVariable Long userId) {
         UserAllResponseDto userAllResponseDto = userService.findByUserId(userId);
 
         return new ResponseEntity<>(userAllResponseDto, HttpStatus.OK);
     }
 
     @PatchMapping("/{userId}")
-    public ResponseEntity<UserAllResponseDto> updateUser (@PathVariable Long userId, @RequestBody UserRequestDto requestDto) {
+    public ResponseEntity<UserAllResponseDto> updateUser(@PathVariable Long userId, @RequestBody UserRequestDto requestDto) {
         UserAllResponseDto UserAllResponseDto = userService.updateUser(userId, requestDto);
 
         return new ResponseEntity<>(UserAllResponseDto, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<Void> updateUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

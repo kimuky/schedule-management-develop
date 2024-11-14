@@ -53,6 +53,13 @@ public class UserService {
         return UserAllResponseDto.toDto(findUser);
     }
 
+    public void deleteUser(Long userId) {
+
+        User findUser = findByIdOrElseThrow(userId);
+
+        userRepository.delete(findUser);
+    }
+
     private User findByIdOrElseThrow(Long userId) {
 
         return userRepository.findById(userId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "유저를 찾을 수 없음"));
