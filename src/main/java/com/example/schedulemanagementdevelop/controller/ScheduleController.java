@@ -1,6 +1,8 @@
 package com.example.schedulemanagementdevelop.controller;
 
-import com.example.schedulemanagementdevelop.dto.*;
+import com.example.schedulemanagementdevelop.dto.schedules.CreateScheduleResponseDto;
+import com.example.schedulemanagementdevelop.dto.schedules.ScheduleAllResponseDto;
+import com.example.schedulemanagementdevelop.dto.schedules.ScheduleRequestDto;
 import com.example.schedulemanagementdevelop.service.ScheduleService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;

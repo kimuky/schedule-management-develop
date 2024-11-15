@@ -1,7 +1,7 @@
 package com.example.schedulemanagementdevelop.service;
 
 import com.example.schedulemanagementdevelop.config.PasswordEncoder;
-import com.example.schedulemanagementdevelop.dto.*;
+import com.example.schedulemanagementdevelop.dto.user.*;
 import com.example.schedulemanagementdevelop.entity.User;
 import com.example.schedulemanagementdevelop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

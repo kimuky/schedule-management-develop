@@ -1,6 +1,6 @@
 package com.example.schedulemanagementdevelop.entity;
 
-import com.example.schedulemanagementdevelop.dto.ScheduleRequestDto;
+import com.example.schedulemanagementdevelop.dto.schedules.ScheduleRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 
